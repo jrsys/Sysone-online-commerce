@@ -8,7 +8,7 @@ export default class UserModel {
   @Column({ type: "varchar", length: 200 })
   name: string;
 
-  @Column({ type: "varchar", length: 200 })
+  @Column({ type: "varchar", length: 200, unique: true })
   email: string;
 
   @Column({ type: "varchar", length: 20, select: false })

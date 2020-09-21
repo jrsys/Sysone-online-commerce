@@ -1,11 +1,11 @@
 import express, { Application } from "express";
-import { createConnection, getConnection } from "typeorm";
+import { createConnection } from "typeorm";
 import cors from "cors";
 
-import UserModel from "./components/user/model";
+import { userRoutes } from "./components/user";
 
 class App {
-  public express: Application;
+  public readonly express: Application;
 
   public constructor() {
     this.express = express();
@@ -21,24 +21,13 @@ class App {
   }
 
   private static async database(): Promise<void> {
-    await createConnection().catch(() =>
-      console.log("Database connection failed")
-    );
+    await createConnection().catch(() => {
+      console.log("Database connection failed");
+    });
   }
 
   private routes(): void {
-    this.express.get("/test", async (req, res) => {
-      const teste = new UserModel();
-
-      teste.name = "Testêncio da Silva";
-      teste.email = "testencio@gmail.com";
-      teste.password = "12345";
-
-      return getConnection()
-        .manager.save(teste)
-        .then((result) => res.status(201).json(result))
-        .catch((err) => res.status(500).json(err));
-    });
+    this.express.use(userRoutes);
   }
 }
 
