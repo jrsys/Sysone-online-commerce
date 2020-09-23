@@ -5,7 +5,9 @@
   "license": "MIT",
   "scripts": {
     "commit": "git-cz",
-    "dev": "ts-node-dev -r tsconfig-paths/register --respawn --transpile-only --ignore-watch node_modules --no-notify ./src/server.ts"
+    "dev": "ts-node-dev -r tsconfig-paths/register --respawn --transpile-only --ignore-watch node_modules --no-notify ./src/server.ts",
+    "build": "tsc",
+    "postbuild": "yarn install --no-lockfile --prod --modules-folder ../backend-build/node_modules"
   },
   "husky": {
     "hooks": {

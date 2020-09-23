@@ -15,18 +15,19 @@ class App {
     this.routes();
   }
 
-  private middlewares(): void {
+  private middlewares() {
     this.express.use(express.json());
     this.express.use(cors());
   }
 
-  private static async database(): Promise<void> {
-    await createConnection().catch(() => {
+  private static async database() {
+    await createConnection().catch((err) => {
       console.log("Database connection failed");
+      console.log(err);
     });
   }
 
-  private routes(): void {
+  private routes() {
     this.express.use(userRoutes);
   }
 }
